@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
     open()
 })
 router.get('/:id', (req, res) => {
-    res.download(`./uploads/${req.params.id}`)
+    res.sendFile(`${__dirname}/uploads/${req.params.id}`)
 })
 
 router.post('/upload', upload, (req, res) => {
