@@ -1,6 +1,7 @@
 const express = require("express")
 const files = require("./routes/files")
 
+global.__basedir = __dirname;
 const app = express()
 
 app.use('/files', files)

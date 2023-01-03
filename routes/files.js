@@ -1,6 +1,7 @@
 const express = require("express")
 const multer = require("multer")
 const fs = require("fs/promises")
+const base_dir = require("../assets")
 
 const router = express.Router()
 const upload = multer({
@@ -30,7 +31,7 @@ router.get('/', (req, res) => {
     open()
 })
 router.get('/:id', (req, res) => {
-    res.sendFile(`${__dirname}/uploads/${req.params.id}`)
+    res.sendFile(`${base_dir}/uploads/${req.params.id}`)
 })
 
 router.post('/upload', upload, (req, res) => {
