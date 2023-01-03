@@ -1,5 +1,6 @@
 const express = require("express")
 const multer = require("multer")
+const fs = require("fs/promises")
 
 const router = express.Router()
 const upload = multer({
@@ -13,6 +14,24 @@ const upload = multer({
     })
 }).single("file-upload")
 
+router.get('/', (req, res) => {
+    const open = async () => {
+        try {
+            const dir = await fs.opendir('./uploads/');
+            res.write("The files are:- ")
+            for await (const dirent of dir)
+                res.write(dirent.name);
+
+            res.end()
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    open()
+})
+router.get('/:id', (req, res) => {
+    res.download(`./uploads/${req.params.id}`)
+})
 
 router.post('/upload', upload, (req, res) => {
     res.send("file received")
