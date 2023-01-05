@@ -39,13 +39,26 @@ router.get('/', (req, res) => {
     }
     open()
 })
-router.get('/:id', (req, res) => {
-    res.sendFile(`${base_dir}/uploads/${req.params.id}`)
+router.get('/:file', (req, res) => {
+    res.sendFile(`${base_dir}/uploads/${req.params.file}`)
 })
 
-router.post('/upload', upload ,(req, res) => {
+router.post('/upload', upload, (req, res) => {
     res.send("file received")
 })
 
+router.delete('/delete/:file', (req, res) => {
+    const open = async () => {
+        try {
+            await fs.unlink(`./uploads/${req.params.file}`);
+            console.log(`sucessfully deleted ${req.params.file}`);
+            res.send("File successfully deleted")
+        } catch (error) {
+            console.error('Error:', error.message);
+            res.send("Error!!!")
+        }
+    }
+    open()
+})
 
 module.exports = router
