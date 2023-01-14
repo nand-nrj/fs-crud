@@ -22,7 +22,7 @@
 ![image](https://user-images.githubusercontent.com/76772181/212372625-433bb548-03eb-4381-84b5-646637997d57.png)
 
 > **2. Downoad a file :**
-![image](https://user-images.githubusercontent.com/76772181/212373285-1ffdaa05-2de6-4f61-af6e-cb35a8d24e03.png)
+![image](https://user-images.githubusercontent.com/76772181/212461025-2345b4aa-f78d-47ed-89cd-875f3ee0d8e6.png)
 
 ## Note 
 1. File Size Limit is **5MB** .
