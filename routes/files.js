@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
 
             res.end()
         } catch (err) {
-            console.error(err);
+            res.send("Error!!!")
         }
     }
     open()
@@ -50,11 +50,46 @@ router.post('/upload', upload, (req, res) => {
 router.delete('/delete/:file', (req, res) => {
     const open = async () => {
         try {
-            await fs.unlink(`./uploads/${req.params.file}`);
-            console.log(`sucessfully deleted ${req.params.file}`);
+            await fs.unlink(`../uploads/${req.params.file}`);
             res.send("File successfully deleted")
         } catch (error) {
-            console.error('Error:', error.message);
+            res.send("Error!!!")
+        }
+    }
+    open()
+})
+
+router.put('/edit/:file', (req, res) => {
+    const open = async () => {
+        try {
+            const fileName = req.params.file;
+            await fs.unlink(`./uploads/${req.params.file}`);
+            const update = multer({
+                storage: multer.diskStorage({
+                    destination: function (req, file, cb) {
+                        cb(null, "uploads")
+                    },
+                    filename: function (req, file, cb) {
+                        cb(null, fileName)
+                    },
+                }),
+                fileFilter: (req, file, callback) => {
+                    const fileSize = parseInt(req.headers['content-length']);
+                    if (fileSize > maxSize) {
+                        return callback("File too large");
+                    }
+                    callback(null, true);
+                }
+            }).single("file-upload")
+            await update(req, res, (err) => {
+                if (err) {
+                    res.send("Error!!!")
+                } else {
+                    res.send("File updated successfully")
+                }
+            })
+
+        } catch (error) {
             res.send("Error!!!")
         }
     }
